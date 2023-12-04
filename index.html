@@ -1,0 +1,78 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="icon" href="EMI-Logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="EMI.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+<div id="app">
+    <div class="calculator">
+        <h1>EMI Calculator</h1>
+
+        <div class="input-group">
+            <label for="loanAmount">Loan Amount</label>
+            <input type="number" v-model="loanAmount" id="loanAmount" placeholder="Enter loan amount">
+        </div>
+
+        <div class="input-group">
+            <label for="loanTerm">Loan Term (Months)</label>
+            <input type="number" v-model="loanTerm" id="loanTerm" placeholder="Enter loan term">
+        </div>
+
+        <div class="input-group">
+            <label for="interestRate">Interest Rate (%)</label>
+            <input type="number" v-model="interestRate" id="interestRate" placeholder="Enter interest rate">
+        </div>
+
+        <button @click="calculateEMI">Calculate EMI</button>
+
+        <div v-if="emiResult">
+            <h2>EMI Details</h2>
+            <p><strong>EMI:</strong> {{ emiResult.emi.toFixed(2) }}</p>
+            <p><strong>Total Interest:</strong> {{ emiResult.totalInterest.toFixed(2) }}</p>
+            <p><strong>Total Payable:</strong> {{ emiResult.totalPayable.toFixed(2) }}</p>
+        </div>
+
+        <div v-if="emiResult">
+            <!-- Add your pie-chart implementation here -->
+            <!-- You can use a library like Chart.js for this purpose -->
+        </div>
+
+        <div v-if="emiResult">
+            <h2>Amortization Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>EMI</th>
+                        <th>Principal</th>
+                        <th>Interest</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="row in emiResult.amortizationSchedule" :key="row.month">
+                        <td>{{ row.month }}</td>
+                        <td>{{ row.emi.toFixed(2) }}</td>
+                        <td>{{ row.principal.toFixed(2) }}</td>
+                        <td>{{ row.interest.toFixed(2) }}</td>
+                        <td>{{ row.balance.toFixed(2) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
